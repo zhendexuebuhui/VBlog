@@ -1,0 +1,40 @@
+.layui-side .layui-icon {
+    padding-right: 16px;
+    line-height: 14px;
+}
+
+.layui-nav-child i {
+    padding-left: 0px;
+}
+
+.search-input {
+    height: 32px;
+    width: 250px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border-style: solid;
+}
+
+.my-container {
+    margin: 0 auto;
+    width: 20%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+button i {
+    padding-right: 5px;
+}
+
+.toolbar {
+    border: 1px solid #ccc;
+    background-color: #eeeeee;
+    padding-top: 4px;
+}
+
+.text {
+    border: 1px solid #ccc;
+    height: 1000px;
+}

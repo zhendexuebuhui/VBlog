@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/layui/css/layui.css" th:href="@{/asserts/layui/css/layui.css}"><link rel="stylesheet" href="" th:href="@{/asserts/css/layui-theme-custom.css}">
+    <link rel="stylesheet" href="" th:href="@{/asserts/css/layui-theme-custom.css}">
+    <link rel="stylesheet" href="../static/css/mystyle.css" th:href="@{/asserts/css/mystyle.css}">
+    <title>个人博客管理系统</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部导航栏 -->
+    <div class="layui-header" th:fragment="topbar">
+        <div class="layui-logo">
+            <div onclick="location='/VBlog/dashboard.html'"><i class="layui-icon layui-icon-app"
+                                                            style="font-size: 20px;padding-right:10px;"></i>个人博客管理系统
+            </div>
+        </div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="javascript:;" title="侧边伸缩" onclick="animation()" ><i
+                    class="layui-icon layui-icon-shrink-right" id="animation"></i></a></li>
+            <li class="layui-nav-item"><a href="#" th:href="@{/index}" title="前台"><i
+                    class="layui-icon layui-icon-home"></i></a></li>
+            <li class="layui-nav-item"><a href="#" th:href="@{/swagger-ui.html#}" title="swagger2接口文档"><i
+                    class="layui-icon layui-icon-link"></i></a></li>
+            <!--<li class="layui-nav-item"><input type="text" class="search-input" placeholder="  搜索..."></li>
+            <button class="layui-btn layui-icon layui-icon-search" style="margin-left:10px;"></button>-->
+        </ul>
+
+        <ul class="layui-nav layui-layout-right ">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="../static/images/admin.jpg" th:src="${session.admin.headUrl}" class="layui-nav-img">
+                    [[${session.admin.adminName}]]
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="" th:href="@{/profile.html}">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+
+            <li class="layui-nav-item"><a href="" th:href="@{/admin/exit}"> 退出系统</a></li>
+        </ul>
+
+    </div>
+    <!-- 侧边栏 -->
+    <div class="layui-side layui-bg-black" th:fragment="sidebar">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+
+                <li class="layui-nav-item"
+                    th:class="${activeUri=='dashboard.html'?'layui-nav-item layui-this':'layui-nav-item'}">
+                    <a href="#" th:href="@{/dashboard.html}">
+                        <i class="layui-icon layui-icon-console"></i>控制台
+                    </a>
+                </li>
+
+                <li th:class="${activeUri=='article.html'||activeUri=='listArticle.html'?'layui-nav-item layui-nav-itemed':'layui-nav-item'}">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-read"></i>文章管理</a>
+                    <dl class="layui-nav-child">
+                        <dd th:class="${activeUri=='article.html'?'layui-this':''}"><a href="#"
+                                                                                       th:href="@{/article.html}"><i
+                                class="layui-icon layui-icon-edit"></i>撰写文章</a></dd>
+                        <dd th:class="${activeUri=='listArticle.html'?'layui-this':''}"><a href="#"
+                                                                                           th:href="@{/listArticle.html}"><i
+                                class="layui-icon layui-icon-list"></i>文章列表</a></dd>
+
+                    </dl>
+                </li>
+
+                <li th:class="${activeUri=='news.html'||activeUri=='listNews.html'?'layui-nav-item layui-nav-itemed':'layui-nav-item'}">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-component"></i>新闻管理</a>
+                    <dl class="layui-nav-child">
+                        <dd th:class="${activeUri=='news.html'?'layui-this':''}"><a href="#"
+                                                                                    th:href="@{/news.html}"><i
+                                class="layui-icon layui-icon-release"></i>发布新闻</a></dd>
+                        <dd th:class="${activeUri=='listNews.html'?'layui-this':''}"><a href="#"
+                                                                                        th:href="@{/listNews.html}"><i
+                                class="layui-icon layui-icon-log"></i>历史新闻</a></dd>
+
+                    </dl>
+                </li>
+                <li class="layui-nav-item"
+                    th:class="${activeUri=='carousel.html'?'layui-nav-item layui-this':'layui-nav-item'}">
+                    <a href="#" th:href="@{/carousel.html}">
+                        <i class="layui-icon layui-icon-carousel"></i>轮播组图
+                    </a>
+                </li>
+                <li class="layui-nav-item"
+                    th:class="${activeUri=='profile.html'?'layui-nav-item layui-this':'layui-nav-item'}">
+                    <a href="#" th:href="@{/profile.html}">
+                        <i class="layui-icon layui-icon-friends"></i>个人管理
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-dialogue"></i>消息</a>
+                    <dl class="layui-nav-child">
+                        <dd th:class="${activeUri=='messages.html'?'layui-this':''}">
+                            <a href="javascript:;" th:href="@{/messages.html}">
+                                <i class="layui-icon layui-icon-layer"></i>留言管理
+                            </a>
+                        </dd>
+                        <dd th:class="${activeUri=='messages/unread'?'layui-this':''}">
+                            <a href="javascript:;">
+                                <i class="layui-icon layui-icon-notice"></i>未读消息<span class="layui-badge">3</span>
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+    <div class="layui-body">
+        <div style="padding: 15px;"></div>
+
+    </div>
+    <div class="layui-footer" th:fragment="footer">
+        © 个人博客管理系统
+    </div>
+</div>
+<script src="../static/layui/layui.js" th:src="@{/asserts/layui/layui.js}"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', 'form', function () {
+        var element = layui.element;
+        var form = layui.form;
+
+
+
+    });
+
+</script>
+</body>
+</html>

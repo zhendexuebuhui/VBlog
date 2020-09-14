@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/layui/css/layui.css" th:href="@{/asserts/layui/css/layui.css}"><link rel="stylesheet" href="" th:href="@{/asserts/css/layui-theme-custom.css}">
+    <link rel="stylesheet" href="../static/css/mystyle.css" th:href="@{/asserts/css/mystyle.css}">
+    <script type="text/javascript" th:src="@{/asserts/js/wangEditor.min.js}"></script>
+    <title>发布新闻</title>
+    <style type="text/css">
+        .toolbar {
+            border: 1px solid #ccc;
+            background-color: #eeeeee;
+            padding-top: 4px;
+        }
+
+        .text {
+            border: 1px solid #ccc;
+            height: 1000px;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div th:replace="commons/bar::topbar"></div>
+
+    <div th:replace="commons/bar::sidebar(activeUri='news.html')"></div>
+
+    <div class="layui-body" style="margin-right: 30px;">
+        <div style="padding: 50px;">
+            <form action="#" th:action="@{/news}" method="post" class="layui-form" id="newNews">
+                <input type="hidden" name="authorId" th:value="${session.admin.id}">
+                <input type="hidden" name="click" value="0">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">新闻标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" placeholder=" 请输入标题...">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">新闻主体</label>
+                    <div class="layui-input-block">
+                        <div id="div1" class="toolbar">
+                        </div>
+                        <!--<div style="padding: 5px 0; color: #ccc">中间隔离带</div>-->
+                        <div id="div2" class="text"> <!--可使用 min-height 实现编辑区域自动增加高度-->
+                        </div>
+                        <!--<textarea style="display: none" id="demo" name="content" lay-verify="content"></textarea>-->
+                        <input type="hidden" value="" name="content" id="content">
+                        <script type="text/javascript">
+                            var E = window.wangEditor;
+                            var editor = new E('#div1', '#div2'); // 两个参数也可以传入 elem 对象，class 选择器
+                            editor.customConfig.uploadImgShowBase64 = true;
+                            // 或者 var editor = new E( document.getElementById('editor') )
+                            editor.create();
+
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn " id="sub" type="submit" lay-filter="formDemo"><i
+                                class="layui-icon layui-icon-release"></i>立即发表
+                        </button>
+                        <button type="reset" class="layui-btn layui-btn-primary" onclick="editor.txt.clear();"><i
+                                class="layui-icon layui-icon-refresh"></i>重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div th:replace="commons/bar::footer"></div>
+</div>
+<script src="../static/layui/layui.js" th:src="@{/asserts/layui/layui.js}"></script>
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script th:src="@{/asserts/js/myjs.js}"></script>
+
+<script>
+    //JavaScript代码区域
+    layui.use(['element', 'form'], function () {
+        var element = layui.element;
+        var form = layui.form;
+        document.getElementById('sub').addEventListener('click', function () {
+            //读取html
+            document.getElementById('content').value = editor.txt.html();
+        }, false)
+
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+spring:
+  jackson:
+    time-zone: "GMT+8"
+    date-format: "yyyy-MM-dd HH:mm:ss"
+  datasource:
+    url: jdbc:mysql://47.102.153.115:3306/artificial_intelligence?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # 更新或创建数据表
+    show-sql: true #控制台显示sql
+logging:
+  file: log/log.log
+  level:
+    org:
+      springframework:
+        security: DEBUG
+    hibernate: DEBUG
+  #  pattern:
+  #    file: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  #    console: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'

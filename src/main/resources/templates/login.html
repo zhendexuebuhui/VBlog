@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!--导入thymeleaf的名称空间-->
+<head>
+    <title>个人博客管理系统</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content=""/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+        <!--    侧边栏伸缩开关-->
+        sessionStorage.setItem('animationVar', '0');
+    </script>
+
+    <!-- css files -->
+    <link th:href="@{/loginResource/bootstrap.css}" rel="stylesheet" type="text/css"/><!-- bootstrap css -->
+    <link th:href="@{/loginResource/mystyle.css}" rel="stylesheet" type="text/css"/><!-- custom css -->
+    <link th:href="@{/loginResource/css_slider.css}" rel="stylesheet" type="text/css" media="all">
+    <link th:href="@{/loginResource/font-awesome.min.css}" rel="stylesheet" type="text/css"><!-- fontawesome css -->
+    <link th:href="@{/asserts/layui/css/layui.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="" th:href="@{/asserts/css/layui-theme-custom.css}" type="text/css">
+
+    <!-- //css files -->
+
+    <!-- google fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext"
+          rel="stylesheet">
+    <!-- //google fonts -->
+    <style type="text/css">
+        <!--
+        输入框和验证码对齐-- >
+        input, img {
+            vertical-align: middle;
+        }
+
+        #code {
+            width: 60%;
+        }
+
+    </style>
+
+</head>
+<body>
+<!-- header -->
+<header>
+    <div class="top-head container">
+        <div class="ml-auto text-right right-p">
+            <ul>
+                <li>
+                    <br>
+                    <a href="#" target="_blank"> <i class="layui-icon layui-icon-triangle-r"
+                                                                        style="padding-right: 10px"></i>博客首页</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <!-- nav -->
+        <nav class="py-3 d-lg-flex">
+            <div id="logo">
+
+
+            </div>
+            <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
+            <input type="checkbox" id="drop"/>
+            <ul class="menu ml-auto mt-1">
+                <li class="active"><a href="#">主页</a></li>
+                <li class=""><a href="#about">系统简介</a></li>
+
+            </ul>
+        </nav>
+        <!-- //nav -->
+    </div>
+</header>
+<!-- //header -->
+
+<!-- banner -->
+<div class="banner" id="home">
+    <div class="layer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-5 col-md-8 px-lg-2 px-0" style="padding-left: -1.25rem">
+                    <div class="banner-form-w3 ml-lg-5">
+                        <div class="padding">
+                            <!-- banner form -->
+                            <form action="#" th:action="@{/admin/login}" method="post">
+                                <h5 class="mb-3">登录</h5>
+                                <div class="form-style-w3ls">
+                                    <div class="alert alert-danger" role="alert" th:text="${msg}"
+                                         th:if="${not #strings.isEmpty(msg)}"></div>
+                                    <input placeholder="账号" name="account" type="text" required="">
+                                    <input placeholder="密码" name="password" type="password" required="">
+                                    <input id="code" placeholder="验证码" name="tryCode" type="text" required="" autocomplete='off'>
+                                    <img alt="验证码" onclick="this.src='/VBlog/defaultKaptcha?d='+new Date()*1"
+                                         th:src="@{/defaultKaptcha}"/>
+                                    <button class="btn" type="submit" style="margin-bottom: 10px;"> 登录</button>
+
+                                    <span> 我已阅读并同意关于个人博客管理系统相关规定 <br><a href="#myModal">《个人博客管理系统相关规定》</a></span>
+
+                                </div>
+                            </form>
+                            <!-- //banner form -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 banner-text-w3pvt" style="padding-left: 150px">
+                    <!-- banner slider-->
+                    <div class="csslider infinity" id="slider1">
+                        <input type="radio" name="slides" checked="checked" id="slides_1"/>
+                        <input type="radio" name="slides" id="slides_2"/>
+                        <input type="radio" name="slides" id="slides_3"/>
+
+                        <ul class="banner_slide_bg" style="margin-top: -70px;">
+                            <li>
+                                <div class="container-fluid">
+                                    <div class="w3ls_banner_txt">
+                                        <h3 class="b-w3ltxt text-capitalize mt-md-4">个人博客管理系统</h3>
+                                        <h4 class="b-w3ltxt text-capitalize mt-md-2">发现和创作</h4>
+                                        <p class="w3ls_pvt-title my-3">
+                                            原创内容输出，发掘出自己深藏已久的创作能力，享受记录。 <br>感受分享带来的乐趣、惊喜</p>
+                                        <a href="#about" class="btn btn-banner my-3">阅读更多</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="container-fluid">
+                                    <div class="w3ls_banner_txt">
+                                        <h3 class="b-w3ltxt text-capitalize mt-md-4">社交理念</h3>
+                                        <h4 class="b-w3ltxt text-capitalize mt-md-2">和善交流 沟通你我</h4>
+                                        <p class="w3ls_pvt-title my-3">
+                                            平等、友好、并以客观公正态度交流观点，<br>分享彼此的知识和想法。</p>
+                                        <a href="#about" class="btn btn-banner my-3">阅读更多</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="container-fluid">
+                                    <div class="w3ls_banner_txt">
+                                        <h3 class="b-w3ltxt text-capitalize mt-md-4">设计理念</h3>
+                                        <h4 class="b-w3ltxt text-capitalize mt-md-2">简约自然 一致可控</h4>
+                                        <p class="w3ls_pvt-title my-3">
+                                            简约界面，感知自然，行为自然，自由的进行操作，<br>包括撤销、回退和终止当前操作等。</p>
+                                        <a href="#about" class="btn btn-banner my-3">阅读更多</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="navigation">
+                            <div>
+                                <label for="slides_1"></label>
+                                <label for="slides_2"></label>
+                                <label for="slides_3"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //banner slider-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="banner-bottom py-5" id="about">
+    <div class="container py-lg-5">
+        <h2 class="heading mb-sm-5 mb-4"> 系统简介 </h2>
+        <div class="row bottom-grids">
+            <div class="col-lg-12">
+                <p class="mt-4"> 伴随着网络技术的发展，博客作为一种网络应用，得到了高速的发展及普及。在互联网中，构建个性化的个人博客，可以充分的表达自己的思想，通过发表文章展示个人才能，抒发个人情感。由于沟通方式比电子邮件、讨论群组更简单和容易，博客已经成为家庭、公司、部门和团队之间越来越盛行的沟通工具。</p>
+            </div>
+            <div class="col-lg-12">
+                <p class="mt-4">
+                    本系统主要功能如下：<br>1.发表和管理文章、新闻；2.设置博客主页的轮播图组件内容；3.博客主人的个人信息管理；4.访客留言的查看和管理；5.用户数据可视化报表
+                    </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- //what we Serve -->
+
+
+<!-- footer -->
+<footer>
+    <div class="footer-layer py-sm-5 pt-5 pb-3">
+        <div class="container py-md-3">
+
+        </div>
+    </div>
+</footer>
+<!-- //footer -->
+
+<!-- copyright -->
+<section class="copyright">
+    <div class="container py-4">
+        <div class="row bottom">
+            <ul class="col-lg-6 links p-0">
+                <li><a href="#home" class="">登录</a></li>
+                <li><a href="#about" class="">系统简介</a></li>
+
+            </ul>
+            <div class="col-lg-6 copy-right p-0">
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //copyright -->
+
+<!-- move top -->
+<div class="move-top text-right">
+    <a href="#home" class="move-top">
+        <span class="layui-icon layui-icon-top" aria-hidden="true" style="font-size: 40px"></span>
+    </a>
+</div>
+</body>
+</html>
